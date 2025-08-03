@@ -2,16 +2,26 @@
 import sys
 import os
 
-# Add backend directory to Python path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'backend'))
+# Add current directory to Python path
+sys.path.insert(0, os.path.dirname(__file__))
 
-# Import the Vercel-compatible FastAPI app
+# Import the simplified FastAPI app
 try:
-    from backend.main_vercel import app
-    print("✓ Loaded Vercel-compatible backend")
+    from main import app
+    print("✓ Loaded simplified Vercel backend")
 except ImportError as e:
-    print(f"⚠️ Vercel backend failed, falling back to main: {e}")
-    from backend.main import app
+    print(f"⚠️ Import failed: {e}")
+    # Create a minimal FastAPI app as last resort
+    from fastapi import FastAPI
+    app = FastAPI()
+    
+    @app.get("/")
+    def root():
+        return {"error": "Backend import failed", "details": str(e)}
+    
+    @app.get("/health")
+    def health():
+        return {"status": "error", "message": "Import failed"}
 
 # Export handler for Vercel
 handler = app
