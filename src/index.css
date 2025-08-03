@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.pdf-container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.pdf-viewer {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #f5f5f5;
+}
+
+.pdf-page {
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  position: relative;
+}
+
+.selection-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.selection-rectangle {
+  position: absolute;
+  border: 2px dashed #1890ff;
+  background-color: rgba(24, 144, 255, 0.1);
+  pointer-events: none;
+}
+
+.selection-label {
+  position: absolute;
+  top: -25px;
+  left: 0;
+  background-color: #1890ff;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+  margin-top: 60px;
+  height: calc(100vh - 60px);
+  display: flex;
+}
+
+.sidebar {
+  width: 300px;
+  background-color: #fafafa;
+  border-right: 1px solid #e8e8e8;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.pdf-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.calculation-type-button {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.calculation-type-button.active {
+  background-color: #1890ff;
+  color: white;
+}
+
+.dimension-input {
+  margin-bottom: 12px;
+}
+
+.results-panel {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-top: 1px solid #e8e8e8;
+  max-height: 300px;
+  overflow-y: auto;
+}

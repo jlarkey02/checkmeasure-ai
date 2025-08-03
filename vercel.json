@@ -1,9 +1,8 @@
 {
   "version": 2,
-  "name": "checkmeasure-ai",
   "builds": [
     {
-      "src": "frontend/package.json",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "build"
@@ -21,10 +20,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/$1"
+      "dest": "/$1"
     }
-  ],
-  "env": {
-    "PYTHONPATH": "/var/task/backend"
-  }
+  ]
 }
