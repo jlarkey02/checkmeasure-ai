@@ -1,89 +1,75 @@
-from urllib.parse import parse_qs
+from http.server import BaseHTTPRequestHandler
+from urllib.parse import urlparse, parse_qs
 import json
 
-def handler(environ, start_response):
-    """WSGI-compatible handler for Vercel"""
-    
-    # Extract request info
-    method = environ.get('REQUEST_METHOD', 'GET')
-    path_info = environ.get('PATH_INFO', '/')
-    query_string = environ.get('QUERY_STRING', '')
-    
-    # CORS headers
-    headers = [
-        ('Content-Type', 'application/json'),
-        ('Access-Control-Allow-Origin', '*'),
-        ('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'),
-        ('Access-Control-Allow-Headers', '*')
-    ]
-    
-    try:
-        # Handle OPTIONS request
-        if method == 'OPTIONS':
-            start_response('200 OK', headers)
-            return [b'']
+class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.end_headers()
         
-        # Route the request
-        if method == 'GET':
-            if 'health' in path_info:
-                response_data = {
-                    "status": "healthy",
-                    "deployment": "vercel-wsgi",
-                    "path": path_info
-                }
-            elif 'element-types' in path_info:
-                response_data = {
-                    "element_types": [
-                        {
-                            "code": "J1",
-                            "description": "Joist - Floor/Ceiling",
-                            "category": "structural",
-                            "calculator_type": "joist",
-                            "active": True
-                        }
-                    ]
-                }
-            else:
-                response_data = {
-                    "message": "CheckMeasureAI API is running",
-                    "deployment": "vercel-wsgi",
-                    "status": "online",
-                    "path": path_info,
-                    "method": method
-                }
-                
-        elif method == 'POST':
-            if 'calculate' in path_info:
-                response_data = {
-                    "element_code": "J1",
-                    "calculations": {"span_length": 4.0},
-                    "cutting_list": [{"element_code": "J1", "quantity": 1}],
-                    "formatted_output": "Basic calculation result",
-                    "deployment": "vercel-wsgi"
-                }
-            else:
-                response_data = {
-                    "error": "POST endpoint not found",
-                    "path": path_info,
-                    "deployment": "vercel-wsgi"
-                }
+        parsed_path = urlparse(self.path)
+        path = parsed_path.path
+        
+        if 'health' in path:
+            response = {
+                "status": "healthy",
+                "deployment": "vercel-http-handler"
+            }
+        elif 'element-types' in path:
+            response = {
+                "element_types": [
+                    {
+                        "code": "J1",
+                        "description": "Joist - Floor/Ceiling",
+                        "category": "structural",
+                        "calculator_type": "joist",
+                        "active": True
+                    }
+                ]
+            }
         else:
-            response_data = {
-                "error": "Method not allowed", 
-                "method": method,
-                "deployment": "vercel-wsgi"
+            response = {
+                "message": "CheckMeasureAI API is running",
+                "deployment": "vercel-http-handler",
+                "status": "online"
             }
         
-        # Return successful response
-        start_response('200 OK', headers)
-        return [json.dumps(response_data).encode('utf-8')]
+        self.wfile.write(json.dumps(response).encode())
+    
+    def do_POST(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.end_headers()
         
-    except Exception as e:
-        # Return error response
-        error_response = {
-            "error": "Internal server error",
-            "details": str(e),
-            "deployment": "vercel-wsgi"
-        }
-        start_response('500 Internal Server Error', headers)
-        return [json.dumps(error_response).encode('utf-8')]
+        parsed_path = urlparse(self.path)
+        path = parsed_path.path
+        
+        if 'calculate' in path:
+            response = {
+                "element_code": "J1",
+                "calculations": {"span_length": 4.0},
+                "cutting_list": [{"element_code": "J1", "quantity": 1}],
+                "formatted_output": "Basic calculation result",
+                "deployment": "vercel-http-handler"
+            }
+        else:
+            response = {
+                "error": "POST endpoint not found",
+                "deployment": "vercel-http-handler"
+            }
+        
+        self.wfile.write(json.dumps(response).encode())
+    
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.end_headers()
