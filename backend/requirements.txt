@@ -9,6 +9,9 @@ pydantic-settings==2.1.0
 python-multipart==0.0.6
 httpx==0.25.2
 
+# PDF processing (trying to include PyMuPDF for basic functionality)
+PyMuPDF==1.23.14
+
 # For data handling (lighter alternatives)
-# Excluding PyMuPDF, pandas, numpy for Vercel compatibility
-# PDF processing will be limited in demo version
+# Excluding heavy CV libraries (opencv, easyocr, tesseract) for Vercel compatibility
+# Advanced PDF processing will be limited in demo version
