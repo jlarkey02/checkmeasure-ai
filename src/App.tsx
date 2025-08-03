@@ -37,14 +37,14 @@ import api from './utils/api';
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
 const { Dragger } = Upload;
-const { TabPane } = Tabs;
+// const { TabPane } = Tabs; // Removed - not used
 
 type ViewMode = 'traditional' | 'multi-agent' | 'dashboard' | 'control' | 'measurement-extraction';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewMode>('traditional');
   const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false); // Removed - not used
   const [calculating, setCalculating] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [selections, setSelections] = useState<any[]>([]);
@@ -93,7 +93,7 @@ const App: React.FC = () => {
     return () => {
       clearInterval(keepAliveInterval);
     };
-  }, []); // Remove backendHealthy dependency to prevent recreation
+  }, [backendHealthy]); // Added missing dependency
 
   const uploadProps: UploadProps = {
     name: 'file',
@@ -133,7 +133,7 @@ const App: React.FC = () => {
     setResults(null);
     
     try {
-      const response = await apiClient.calculateJoists(values);
+      await apiClient.calculateJoists(values);
       setResults(response.data);
       message.success('Calculation completed successfully!');
     } catch (error) {
@@ -235,7 +235,7 @@ const App: React.FC = () => {
 
   const handleDemoCalculation = async () => {
     try {
-      const response = await apiClient.agents.demoJoistCalculation();
+      await apiClient.agents.demoJoistCalculation();
       message.success('Demo calculation started!');
       message.info('Check the dashboard for results');
       setDashboardKey(prev => prev + 1);

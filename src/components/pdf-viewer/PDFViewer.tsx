@@ -28,20 +28,20 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ file, onAnalysis, measurements = 
     zoomLevel, 
     setCurrentPage, 
     setZoomLevel,
-    selectionAreas,
-    activeCalculationType,
+    // selectionAreas, // Removed - not used
+    // activeCalculationType, // Removed - not used
     isSelecting 
   } = useAppStore();
 
   useEffect(() => {
     loadPDF();
-  }, [file]);
+  }, [file, loadPDF]);
 
   useEffect(() => {
     if (pdfDoc) {
       renderPage();
     }
-  }, [pdfDoc, currentPage, zoomLevel]);
+  }, [pdfDoc, currentPage, zoomLevel, renderPage]);
 
   const loadPDF = async () => {
     try {

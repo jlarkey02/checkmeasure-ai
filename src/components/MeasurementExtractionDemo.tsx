@@ -52,7 +52,7 @@ interface ElementTypeInfo {
 
 const MeasurementExtractionDemo: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [analyzing, setAnalyzing] = useState(false);
+  // const [analyzing, setAnalyzing] = useState(false); // Removed - not used
   const [scale, setScale] = useState<ScaleResult | null>(null);
   const [editingScale, setEditingScale] = useState(false);
   const [overrideScale, setOverrideScale] = useState('');
@@ -63,11 +63,11 @@ const MeasurementExtractionDemo: React.FC = () => {
   const [selectedPresetScale, setSelectedPresetScale] = useState<string>('1:100 at A3');
   const [elementTypes, setElementTypes] = useState<ElementTypeInfo[]>([]);
   const [selectedElementType, setSelectedElementType] = useState<string>('J1');
-  const [showCalculation, setShowCalculation] = useState(false);
-  const [consolidatedList, setConsolidatedList] = useState<string>('');
+  // const [showCalculation, setShowCalculation] = useState(false); // Removed - not used
+  // const [consolidatedList, setConsolidatedList] = useState<string>(''); // Removed - not used
   
   const { 
-    isSelecting, 
+    // isSelecting, // Removed - not used 
     setIsSelecting, 
     selectionAreas, 
     clearSelectionAreas 
@@ -284,7 +284,7 @@ const MeasurementExtractionDemo: React.FC = () => {
     newAreas.forEach(area => {
       handleAnalyzeArea(area);
     });
-  }, [selectionAreas]);
+  }, [selectionAreas, handleAnalyzeArea, measuredAreas]);
 
   return (
     <div style={{ padding: 24 }}>

@@ -18,10 +18,10 @@ import {
 import { 
   HeartTwoTone,
   WarningTwoTone,
-  CheckCircleTwoTone,
+  // CheckCircleTwoTone, // Removed - not used
   CloseCircleTwoTone,
   ReloadOutlined,
-  ThunderboltOutlined,
+  // ThunderboltOutlined, // Removed - not used
   TeamOutlined,
   MessageOutlined,
   ProjectOutlined

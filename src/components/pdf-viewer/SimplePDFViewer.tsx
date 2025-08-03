@@ -26,13 +26,13 @@ const SimplePDFViewer: React.FC<SimplePDFViewerProps> = ({ file, onSelectionsCha
 
   useEffect(() => {
     loadPDF();
-  }, [file]);
+  }, [file, loadPDF]);
 
   useEffect(() => {
     if (pdfDoc) {
       renderPage();
     }
-  }, [pdfDoc, pageNum, scale]);
+  }, [pdfDoc, pageNum, scale, renderPage]);
 
   const loadPDF = async () => {
     try {

@@ -26,7 +26,7 @@ import {
   ReloadOutlined,
   DeleteOutlined,
   ExperimentOutlined,
-  SettingOutlined,
+  // SettingOutlined, // Removed - not used
   RocketOutlined
 } from '@ant-design/icons';
 import { apiClient } from '../../utils/api';
@@ -43,7 +43,7 @@ interface AgentControlPanelProps {
 const AgentControlPanel: React.FC<AgentControlPanelProps> = ({ onRefresh }) => {
   const [agents, setAgents] = useState<AgentStatus[]>([]);
   const [capabilities, setCapabilities] = useState<CapabilityInfo | null>(null);
-  const [activeProjects, setActiveProjects] = useState<ProjectStatus[]>([]);
+  // const [activeProjects, setActiveProjects] = useState<ProjectStatus[]>([]); // Removed - not used
   const [loading, setLoading] = useState(false);
   
   // Modal states
@@ -94,7 +94,7 @@ const AgentControlPanel: React.FC<AgentControlPanelProps> = ({ onRefresh }) => {
 
   const handleCreateAgent = async (values: any) => {
     try {
-      const response = await apiClient.agents.createAgent(
+      await apiClient.agents.createAgent(
         values.agent_type,
         values.name,
         {
@@ -156,7 +156,7 @@ const AgentControlPanel: React.FC<AgentControlPanelProps> = ({ onRefresh }) => {
         }
       ];
 
-      const response = await apiClient.agents.createProject(
+      await apiClient.agents.createProject(
         values.project_name,
         values.project_description,
         tasks,
@@ -176,7 +176,7 @@ const AgentControlPanel: React.FC<AgentControlPanelProps> = ({ onRefresh }) => {
 
   const handleExecuteTask = async (values: any) => {
     try {
-      const response = await apiClient.agents.executeTask(
+      await apiClient.agents.executeTask(
         values.agent_type,
         values.task_type,
         {
@@ -199,7 +199,7 @@ const AgentControlPanel: React.FC<AgentControlPanelProps> = ({ onRefresh }) => {
 
   const handleDemoCalculation = async () => {
     try {
-      const response = await apiClient.agents.demoJoistCalculation();
+      await apiClient.agents.demoJoistCalculation();
       message.success(`Demo calculation started: ${response.data.project_id}`);
       message.info('Check the project tracker for results');
     } catch (error) {
