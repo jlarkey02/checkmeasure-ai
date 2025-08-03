@@ -1,0 +1,14 @@
+# Minimal requirements for Vercel deployment
+# Core framework
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.1
+pydantic-settings==2.1.0
+
+# Basic functionality
+python-multipart==0.0.6
+httpx==0.25.2
+
+# For data handling (lighter alternatives)
+# Excluding PyMuPDF, pandas, numpy for Vercel compatibility
+# PDF processing will be limited in demo version

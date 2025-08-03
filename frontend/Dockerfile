@@ -1,0 +1,41 @@
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files first for better caching
+COPY package.json package-lock.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy application code
+COPY . .
+
+# Build the app
+RUN npm run build
+
+# Production stage
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install serve for production
+RUN npm install -g serve
+
+# Copy built app from builder stage
+COPY --from=builder /app/build ./build
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
+USER nodejs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
+
+# Expose port
+EXPOSE 3000
+
+# Serve the built app
+CMD ["serve", "-s", "build", "-l", "3000"]

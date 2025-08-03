@@ -1,0 +1,66 @@
+{
+  "scale": {
+    "scale_ratio": "1:100",
+    "scale_factor": 100.0,
+    "confidence": 95.0,
+    "method": "text",
+    "source_text": "1:100",
+    "page_number": 0
+  },
+  "joists": [
+    {
+      "label": "J1",
+      "joist_type": "J1",
+      "sublabel": null,
+      "dimensions": null,
+      "material": null,
+      "confidence": 90.0
+    },
+    {
+      "label": "J2",
+      "joist_type": "J2",
+      "sublabel": null,
+      "dimensions": null,
+      "material": null,
+      "confidence": 90.0
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "scale-1",
+      "category": "scale",
+      "description": "Drawing Scale",
+      "value": "1:100",
+      "confidence": 95.0,
+      "source": "text",
+      "editable": true
+    },
+    {
+      "id": "material-1",
+      "category": "material",
+      "description": "Default Joist Material",
+      "value": "200x45 E13 LVL",
+      "confidence": 70.0,
+      "source": "default",
+      "editable": true
+    },
+    {
+      "id": "spacing-1",
+      "category": "measurement",
+      "description": "Default Joist Spacing",
+      "value": "450mm",
+      "confidence": 80.0,
+      "source": "default",
+      "editable": true
+    },
+    {
+      "id": "pattern-1",
+      "category": "joist",
+      "description": "Joist Detection Method",
+      "value": "Text labels found: 2 joists",
+      "confidence": 85.0,
+      "source": "text",
+      "editable": false
+    }
+  ]
+}
