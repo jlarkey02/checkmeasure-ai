@@ -30,7 +30,7 @@ import {
   RocketOutlined
 } from '@ant-design/icons';
 import { apiClient } from '../../utils/api';
-import { AgentStatus, CapabilityInfo, ProjectStatus } from '../../types';
+import { AgentStatus, CapabilityInfo } from '../../types';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -94,7 +94,7 @@ const AgentControlPanel: React.FC<AgentControlPanelProps> = ({ onRefresh }) => {
 
   const handleCreateAgent = async (values: any) => {
     try {
-      await apiClient.agents.createAgent(
+      const response = await apiClient.agents.createAgent(
         values.agent_type,
         values.name,
         {
@@ -199,7 +199,7 @@ const AgentControlPanel: React.FC<AgentControlPanelProps> = ({ onRefresh }) => {
 
   const handleDemoCalculation = async () => {
     try {
-      await apiClient.agents.demoJoistCalculation();
+      const response = await apiClient.agents.demoJoistCalculation();
       message.success(`Demo calculation started: ${response.data.project_id}`);
       message.info('Check the project tracker for results');
     } catch (error) {

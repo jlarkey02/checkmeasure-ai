@@ -284,7 +284,7 @@ const MeasurementExtractionDemo: React.FC = () => {
     newAreas.forEach(area => {
       handleAnalyzeArea(area);
     });
-  }, [selectionAreas, handleAnalyzeArea, measuredAreas]);
+  }, [selectionAreas]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div style={{ padding: 24 }}>

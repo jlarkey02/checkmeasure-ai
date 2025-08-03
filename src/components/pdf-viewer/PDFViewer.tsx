@@ -35,13 +35,13 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ file, onAnalysis, measurements = 
 
   useEffect(() => {
     loadPDF();
-  }, [file, loadPDF]);
+  }, [file]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (pdfDoc) {
       renderPage();
     }
-  }, [pdfDoc, currentPage, zoomLevel, renderPage]);
+  }, [pdfDoc, currentPage, zoomLevel]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadPDF = async () => {
     try {

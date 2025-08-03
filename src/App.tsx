@@ -10,7 +10,7 @@ import {
   message, 
   Row, 
   Col, 
-  Tabs,
+  // Tabs, // Removed - not used
   Badge,
   Alert
 } from 'antd';
@@ -44,7 +44,7 @@ type ViewMode = 'traditional' | 'multi-agent' | 'dashboard' | 'control' | 'measu
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewMode>('traditional');
   const [pdfFile, setPdfFile] = useState<File | null>(null);
-  // const [loading, setLoading] = useState(false); // Removed - not used
+  const [loading, setLoading] = useState(false); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [calculating, setCalculating] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [selections, setSelections] = useState<any[]>([]);
@@ -133,7 +133,7 @@ const App: React.FC = () => {
     setResults(null);
     
     try {
-      await apiClient.calculateJoists(values);
+      const response = await apiClient.calculateJoists(values);
       setResults(response.data);
       message.success('Calculation completed successfully!');
     } catch (error) {

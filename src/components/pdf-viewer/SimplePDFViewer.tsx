@@ -26,13 +26,13 @@ const SimplePDFViewer: React.FC<SimplePDFViewerProps> = ({ file, onSelectionsCha
 
   useEffect(() => {
     loadPDF();
-  }, [file, loadPDF]);
+  }, [file]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (pdfDoc) {
       renderPage();
     }
-  }, [pdfDoc, pageNum, scale, renderPage]);
+  }, [pdfDoc, pageNum, scale]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadPDF = async () => {
     try {
